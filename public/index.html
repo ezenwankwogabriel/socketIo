@@ -16,9 +16,19 @@
 
 	socket.on('connect', ()=>{
 		console.log('client side connected')
+
+		socket.emit('createEmail', {
+			to: 'jenny@mailinator.com',
+			text: 'Hey boss.. This is Gabby'
+		})
 	})
 	socket.on('disconnect', ()=>{
 		console.log('disconnected server')
 	})
+
+	socket.on('newEmail', function(data){
+		console.log(data)
+	})
+
 </script>
 </html> 

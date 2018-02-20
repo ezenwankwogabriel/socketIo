@@ -17,13 +17,24 @@ app.use(express.static(publicPath));
 io.on('connection', function(socket){
 	console.log('user connected');
 
+		socket.emit('newEmail', {from: 'gabby@mailinator.com', text: 'dont fuck urself today', createdAt: 123})
+		socket.on('createEmail', function(createEmail){
+			console.log(createEmail)
+		})
+
+
+
+
+
 		socket.on('disconnect', function(){
 		console.log('disconnected connected')
 	});
+
+
 });
 
 
- 
+
 
 
 server.listen(port, ()=>{
