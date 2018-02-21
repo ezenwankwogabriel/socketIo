@@ -14,16 +14,20 @@ var io = socketIO(server);
 
 app.use(express.static(publicPath));
 
+//socket.emit emits an event to a single connection
+//io.emit emits an event to every single connection
 io.on('connection', function(socket){
 	console.log('user connected');
 
-		socket.emit('newEmail', {from: 'gabby@mailinator.com', text: 'dont fuck urself today', createdAt: 123})
-		socket.on('createEmail', function(createEmail){
-			console.log(createEmail)
+
+		socket.on('createEmail', (message)=>{
+			console.log(message)
+			io.emit('newMessage', {
+				from: message.from,
+				text: message.text, 
+				createdAt: new Date().getTime()
+			})
 		})
-
-
-
 
 
 		socket.on('disconnect', function(){
