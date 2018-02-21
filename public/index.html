@@ -18,13 +18,24 @@
 		console.log('client side connected')
 	})
 
+	socket.on('newMessage', function(data){
+		console.log(data)
+	})
+
+	socket.on('newJoin', function(data){
+		console.log(data)
+	})
+
+	socket.on('newOtodo', function(data){
+		console.log(data)
+	})
+
+
 	socket.on('disconnect', ()=>{
 		console.log('disconnected server')
 	})
 
-	socket.on('newMessage', function(data){
-		console.log(data)
-	})
+	
 
 </script>
 </html> 

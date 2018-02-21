@@ -20,20 +20,28 @@ app.use(express.static(publicPath));
 io.on('connection', function(socket){
 	console.log('user connected');
 
+	socket.emit('newJoin', {
+		from: 'Admin',
+		text: 'Welcome new otondo to our chat'
+	})
+	socket.broadcast.emit('newOtodo', {
+		from: 'userName',
+		text: 'otondo has jst joined our chat room'
+	})
 
 		socket.on('createEmail', (message)=>{
 			console.log(message)
-			// io.emit('newMessage', {
-			// 	from: message.from,
-			// 	text: message.text, 
-			// 	createdAt: new Date().getTime()
-			// })
-
-			socket.broadcast.emit('newMessage', {
+			io.emit('newMessage', {
 				from: message.from,
-				text: message.text,
+				text: message.text, 
 				createdAt: new Date().getTime()
 			})
+
+			// socket.broadcast.emit('newMessage', {
+			// 	from: message.from,
+			// 	text: message.text,
+			// 	createdAt: new Date().getTime()
+			// })
 		})
 
 
