@@ -16,15 +16,22 @@ app.use(express.static(publicPath));
 
 //socket.emit emits an event to a single connection
 //io.emit emits an event to every single connection
+//socket.broadcast emits to every single connection except the person sending it
 io.on('connection', function(socket){
 	console.log('user connected');
 
 
 		socket.on('createEmail', (message)=>{
 			console.log(message)
-			io.emit('newMessage', {
+			// io.emit('newMessage', {
+			// 	from: message.from,
+			// 	text: message.text, 
+			// 	createdAt: new Date().getTime()
+			// })
+
+			socket.broadcast.emit('newMessage', {
 				from: message.from,
-				text: message.text, 
+				text: message.text,
 				createdAt: new Date().getTime()
 			})
 		})
